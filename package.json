@@ -1,0 +1,24 @@
+{
+  "name": "sampleapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshals13/upgraded-octo-succotash.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harshals13/upgraded-octo-succotash/issues"
+  },
+  "homepage": "https://github.com/harshals13/upgraded-octo-succotash#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.8.1",
+    "request": "^2.88.0"
+  }
+}
