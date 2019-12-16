@@ -19,7 +19,6 @@ connection.once('open', ()=> {
 });
 
 // Create storage engine
-
 var storage = new GridFsStorage({
     url: 'mongodb://localhost:27017/myAppTwo',
     file: (req, file) => {
@@ -46,9 +45,45 @@ const options = {
     }
 };
 
+// Get location details
 router.get('/', (req, res) => {
     console.log("Here");
-    Location.find((err, docs) => {
+    Location.findOne({_id: req.query.id},(err, docs) => {
+        if(!err) {
+            res.json({
+                status: 0,
+                response: docs
+            });
+        } else {
+            res.json({
+                status: 999,
+                response: err
+            });
+        }
+    })
+});
+
+// Get locations of a user
+router.get('/:userId', (req, res) => {
+    console.log("Here");
+    Location.find({userId: req.params.userId},(err, docs) => {
+        if(!err) {
+            res.json({
+                status: 0,
+                response: docs
+            });
+        } else {
+            res.json({
+                status: 999,
+                response: err
+            });
+        }
+    })
+});
+
+router.get('/name', (req, res) => {
+    console.log("Here");
+    Location.find({name: req.query.keyword},(err, docs) => {
         if(!err) {
             res.json({
                 status: 0,
@@ -88,6 +123,42 @@ router.post('/', upload.single('image'), (req, res, next) => {
     });
 });
 
+// @route POST /upload
+// Uploads file to DB
+router.post('/update',upload.single('image'),(req, res, next) => {
+
+    Location.findOne({_id: req.body.id}, function(err, location) {
+        if(!err) {
+            if(!location) {
+                location = new Location();
+                location.name = req.body.name;
+                location.description = req.body.description;
+                location.address = req.body.address;
+                location.fileName = req.file.filename;
+                location.userId = req.body.userId;
+                location.fileName = req.file.filename;
+            }
+            location.fileName = req.file.filename;
+            location.name = req.body.name;
+            location.description = req.body.description;
+            location.address = req.body.address;
+            location.save(function(err, doc) {
+                if(!err) {
+                    res.json({
+                        status: 0,
+                        response: doc
+                    });
+                } else {
+                    res.json({
+                        status: 999,
+                        response: err
+                    });
+                }
+            });
+        }
+    });
+});
+
 router.get('/image/:filename', (req, res) => {
     gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
         // Check if file is present
@@ -108,6 +179,22 @@ router.get('/image/:filename', (req, res) => {
             })
         }
     })
+})
+
+router.delete('/delete/:id', (req, res) => {
+    Location.remove({ _id: req.param.id }, function(err) {
+        if(!err) {
+            res.json({
+                status: 0,
+                response: doc
+            });
+        } else {
+            res.json({
+                status: 999,
+                response: err
+            });
+        }
+    });
 })
 
 module.exports = router;

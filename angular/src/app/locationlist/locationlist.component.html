@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <button style="margin-top: 30px" class="btn btn-success" (click)="openLocationForm(addLocationModal)">Add Location</button>
+            <button style="margin-top: 30px" class="btn btn-primary" (click)="openLocationForm(addLocationModal)">Add Location</button>
         </div>
         </div>
         <div class="col-md-4">
@@ -15,22 +15,21 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <button style="margin-top: 30px" class="btn btn-success" (click)="search()">Search</button>
+                <button style="margin-top: 30px" class="btn btn-success" (click)="search()">Search</button> &nbsp;
+                <button style="margin-top: 30px" class="btn btn-primary" (click)="getAllLocation()">Reset</button>
             </div>
         </div>
       </div>
       <div class="row">
           <div class="card" style="width: 20rem; margin: 2%" *ngFor="let location of locations">
-            <img class="card-img-top" src="{{location.restaurant.featured_image}}" alt="Card image cap">
+            <img class="card-img-top" src="http://localhost:3000/api/v1/location/image{{location.fileName}}" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{location.name}}</h5>
                 <div class="card-text">
-                  <ul style="list-style-type:none;">
-                    <li>{{location.cuisines}}</li>
-                    <li></li>
-                  </ul>
+                 {{location.description}}
                 </div>
-                <button class="btn btn-primary float-left" (click)="getLocationDetails(location)" >Details</button>
+                <button class="btn btn-primary float-left" (click)="getLocationDetails(location._id)" >Details</button> &nbsp;
+                <button class="btn btn-success float-right" (click)="openLocationForm(addLocationModal, location)" >Edit</button>
               </div>
             </div>
       </div>

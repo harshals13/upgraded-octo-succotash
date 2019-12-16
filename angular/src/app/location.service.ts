@@ -20,12 +20,48 @@ export class LocationService {
     .pipe();
   }
 
+  getLocationDetails(id): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.get(AppConfig.baseUrlV1 + `/location?id=${id}`, this.options)
+    .pipe();
+  }
+
+  updateLocation(data): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.post(AppConfig.baseUrlV1 + '/location/update', data, this.options)
+    .pipe();
+  }
+
   getLocationsForUser(userId): Observable< any > {
     const responseType = 'json';
     this.options = {
       responseType
     };
     return this.http.get(AppConfig.baseUrlV1 + `/location/${userId}`, this.options)
+    .pipe();
+  }
+
+  search(keyword): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.get(AppConfig.baseUrlV1 + `/location/name?search=${keyword}`, this.options)
+    .pipe();
+  }
+
+  deleteLocation(id): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.delete(AppConfig.baseUrlV1 + `/location/delete/${id}`, this.options)
     .pipe();
   }
 }

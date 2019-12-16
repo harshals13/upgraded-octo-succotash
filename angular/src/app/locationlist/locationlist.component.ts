@@ -15,6 +15,8 @@ export class LocationlistComponent implements OnInit {
   addLocationForm: FormGroup;
   modalRef: BsModalRef;
   selectedFile: any;
+  isUpdate: any;
+  selectedLocation: any;
 
   constructor(private modalService: BsModalService,
               private locationService: LocationService,
@@ -26,10 +28,25 @@ export class LocationlistComponent implements OnInit {
       description: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required)
     });
+
+    this.getAllLocation();
   }
 
-  openLocationForm(template) {
-    this.addLocationForm.reset();
+  openLocationForm(template, location) {
+    this.selectedLocation = location;
+    if (location) {
+      this.isUpdate = true;
+      this.addLocationForm.patchValue({
+        name: location.name,
+        address: location.address,
+        description: location.description
+      });
+
+    } else {
+      this.isUpdate = false;
+      this.addLocationForm.reset();
+    }
+
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'gray modal-lg' })
@@ -37,7 +54,9 @@ export class LocationlistComponent implements OnInit {
   }
 
   search() {
-
+    this.locationService.search(this.keyword).subscribe((res) => {
+      this.locations = res.response;
+    });
   }
 
   getAllLocation() {
@@ -59,14 +78,24 @@ export class LocationlistComponent implements OnInit {
       formData.append('image', this.selectedFile);
       formData.append('userId', localStorage.email);
 
-      this.locationService.addLocation(formData).subscribe((res) => {
-        console.log(res);
-        if(res.status === 0) {
-          this.modalRef.hide();
-          alert('Location added successfully');
-        }
-      });
-
+      if (this.isUpdate) {
+        formData.append('id', this.selectedLocation._id)
+        this.locationService.updateLocation(formData).subscribe((res) => {
+          console.log(res);
+          if (res.status === 0) {
+            this.modalRef.hide();
+            alert('Location updated successfully');
+          }
+        });
+      } else {
+        this.locationService.addLocation(formData).subscribe((res) => {
+          console.log(res);
+          if (res.status === 0) {
+            this.modalRef.hide();
+            alert('Location added successfully');
+          }
+        });
+      }
     } else {
       this.addLocationForm.markAsDirty();
     }
