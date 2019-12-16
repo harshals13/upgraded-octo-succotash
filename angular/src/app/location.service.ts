@@ -61,7 +61,7 @@ export class LocationService {
     this.options = {
       responseType
     };
-    return this.http.delete(AppConfig.baseUrlV1 + `/location/delete/${id}`, this.options)
+    return this.http.post(AppConfig.baseUrlV1 + `/location/delete/${id}`, null, this.options)
     .pipe();
   }
 }

@@ -181,12 +181,12 @@ router.get('/image/:filename', (req, res) => {
     })
 })
 
-router.delete('/delete/:id', (req, res) => {
-    Location.remove({ _id: req.param.id }, function(err) {
+router.post('/delete/:id', (req, res) => {
+    Location.remove({ _id: req.params.id }, function(err) {
         if(!err) {
             res.json({
                 status: 0,
-                response: doc
+                response: 'Deleted'
             });
         } else {
             res.json({

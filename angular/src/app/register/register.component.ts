@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
       this.userService.register(value).subscribe((data) => {
         if (data.status === 0) {
           this.router.navigate(['/login']);
-          alert("User registered successfully");
+          alert('User registered successfully');
         }
       });
     }
