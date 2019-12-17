@@ -84,6 +84,7 @@ export class LocationlistComponent implements OnInit {
           console.log(res);
           if (res.status === 0) {
             this.modalRef.hide();
+            this.getAllLocation();
             alert('Location updated successfully');
           }
         });
@@ -92,6 +93,7 @@ export class LocationlistComponent implements OnInit {
           console.log(res);
           if (res.status === 0) {
             this.modalRef.hide();
+            this.getAllLocation();
             alert('Location added successfully');
           }
         });

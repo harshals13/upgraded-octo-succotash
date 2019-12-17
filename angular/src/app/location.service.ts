@@ -52,7 +52,7 @@ export class LocationService {
     this.options = {
       responseType
     };
-    return this.http.get(AppConfig.baseUrlV1 + `/location/name?search=${keyword}`, this.options)
+    return this.http.get(AppConfig.baseUrlV1 + `/location/name/search?keyword=${keyword}`, this.options)
     .pipe();
   }
 

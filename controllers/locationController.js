@@ -47,7 +47,7 @@ const options = {
 
 // Get location details
 router.get('/', (req, res) => {
-    console.log("Here");
+    console.log("details");
     Location.findOne({_id: req.query.id},(err, docs) => {
         if(!err) {
             res.json({
@@ -65,7 +65,7 @@ router.get('/', (req, res) => {
 
 // Get locations of a user
 router.get('/:userId', (req, res) => {
-    console.log("Here");
+    console.log("UserId");
     Location.find({userId: req.params.userId},(err, docs) => {
         if(!err) {
             res.json({
@@ -81,8 +81,8 @@ router.get('/:userId', (req, res) => {
     })
 });
 
-router.get('/name', (req, res) => {
-    console.log("Here");
+router.get('/name/search', (req, res) => {
+    console.log("search");
     Location.find({name: req.query.keyword},(err, docs) => {
         if(!err) {
             res.json({
