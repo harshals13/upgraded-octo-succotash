@@ -20,7 +20,7 @@ connection.once('open', ()=> {
 
 // Create storage engine
 var storage = new GridFsStorage({
-    url: 'mongodb://localhost:27017/myAppTwo',
+    url: 'mongodb+srv://dbUser:WcqmtZqYTwpwFlZV@cluster0-rmn8p.mongodb.net/test?retryWrites=true&w=majority',
     file: (req, file) => {
       return new Promise((resolve, reject) => {
         crypto.randomBytes(16, (err, buf) => {
