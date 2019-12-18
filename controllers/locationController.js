@@ -7,7 +7,7 @@ const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const crypto = require('crypto');
-const connection = mongoose.createConnection('mongodb://localhost:27017/myAppTwo');
+const connection = mongoose.createConnection('mongodb+srv://dbUser:WcqmtZqYTwpwFlZV@cluster0-rmn8p.mongodb.net/test?retryWrites=true&w=majority');
 const path = require('path');
 const Location = mongoose.model('Location');
 let gfs;
