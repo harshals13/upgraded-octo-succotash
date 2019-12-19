@@ -16,6 +16,7 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
 // Connecting to database
 require('./models/db')
 require("./models/location.model");
